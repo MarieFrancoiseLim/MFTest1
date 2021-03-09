@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.ibm.rules.studio.model.decisionmodel:DecisionModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:com.ibm.rules.studio.model.decisionmodel="http://com.ibm.rules.studio/model/decisionmodel.ecore">
+  <name>Greetings</name>
+  <uuid>5f0d5997-eb09-4c0b-a58d-fe5a4adec247</uuid>
+  <locale>en_US</locale>
+  <definition><definitions xmlns="http://www.omg.org/spec/DMN/20180521/MODEL/" id="decisions" name="Greetings" namespace="">
+    <extensionElements>
+        <description xmlns="http://www.ibm.com/spec/ODM/dmn.xsd">Compose greetings from data such as current hour and gender.</description>
+        <locale xmlns="http://www.ibm.com/spec/ODM/dmn.xsd" id="en_US"/>
+    </extensionElements>
+    <inputData id="node_0" name="Hour">
+        <description>The time of the day in hours</description>
+        <extensionElements>
+            <initialization xmlns="http://www.ibm.com/spec/ODM/dmn.xsd">
+                <output bomType="java.lang.Long" collection="false" name="the hour"/>
+                <rule defaultRule="true" href="Hour/default-value-setting.drl" kind="BusinessRule" name="default-value-setting"/>
+            </initialization>
+        </extensionElements>
+        <variable id="node_0_ii" name="Hour" typeRef="java.lang.Long"/>
+    </inputData>
+    <inputData id="node_1" name="Gender">
+        <description>The gender of the person</description>
+        <extensionElements>
+            <initialization xmlns="http://www.ibm.com/spec/ODM/dmn.xsd">
+                <output bomType="java.lang.String" collection="false" name="the gender"/>
+                <rule defaultRule="true" href="Gender/default-value-setting.drl" kind="BusinessRule" name="default-value-setting"/>
+            </initialization>
+        </extensionElements>
+        <variable id="node_1_ii" name="Gender" typeRef="java.lang.String"/>
+    </inputData>
+    <inputData id="node_4" name="Degree">
+        <description>The academic degree of the person</description>
+        <extensionElements>
+            <initialization xmlns="http://www.ibm.com/spec/ODM/dmn.xsd">
+                <output bomType="java.lang.String" collection="false" name="the degree"/>
+                <rule defaultRule="true" href="Degree/default-value-setting.drl" kind="BusinessRule" name="default-value-setting"/>
+            </initialization>
+        </extensionElements>
+        <variable id="node_4_ii" name="Degree" typeRef="java.lang.String"/>
+    </inputData>
+    <inputData id="node_6" name="Name">
+        <description>The name of the person</description>
+        <extensionElements>
+            <initialization xmlns="http://www.ibm.com/spec/ODM/dmn.xsd">
+                <output bomType="java.lang.String" collection="false" name="the name"/>
+                <rule defaultRule="true" href="Name/default-value-setting.drl" kind="BusinessRule" name="default-value-setting"/>
+            </initialization>
+        </extensionElements>
+        <variable id="node_6_ii" name="Name" typeRef="java.lang.String"/>
+    </inputData>
+    <decision id="node_2" name="Greeting">
+        <description>Decide the greeting to use based on the time of day</description>
+        <extensionElements>
+            <ruleset xmlns="http://www.ibm.com/spec/ODM/dmn.xsd" conflictResolution="sequence">
+                <input bomType="java.lang.Long" collection="false" name="the hour"/>
+                <output bomType="java.lang.String" collection="false" name="the greeting"/>
+                <rule defaultRule="false" href="Greeting/greeting.dmt" kind="DecisionTable" name="greeting"/>
+            </ruleset>
+        </extensionElements>
+        <variable id="node_2_ii" name="Greeting" typeRef="java.lang.String"/>
+        <informationRequirement>
+            <requiredInput href="#node_0"/>
+        </informationRequirement>
+    </decision>
+    <decision id="node_3" name="Courtesy Title">
+        <description>Decide the courtesy title to use based on the gender and degree of the person</description>
+        <extensionElements>
+            <ruleset xmlns="http://www.ibm.com/spec/ODM/dmn.xsd" conflictResolution="first">
+                <input bomType="java.lang.String" collection="false" name="the gender"/>
+                <input bomType="java.lang.String" collection="false" name="the degree"/>
+                <output bomType="java.lang.String" collection="false" name="the courtesy title"/>
+                <rule defaultRule="false" href="Courtesy%20Title/title.dmt" kind="DecisionTable" name="title"/>
+            </ruleset>
+        </extensionElements>
+        <variable id="node_3_ii" name="Courtesy Title" typeRef="java.lang.String"/>
+        <informationRequirement>
+            <requiredInput href="#node_1"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#node_4"/>
+        </informationRequirement>
+    </decision>
+    <decision id="node_5" name="Salutation">
+        <description>Decide the complete salutation to use</description>
+        <extensionElements>
+            <ruleset xmlns="http://www.ibm.com/spec/ODM/dmn.xsd" conflictResolution="sequence">
+                <input bomType="java.lang.String" collection="false" name="the greeting"/>
+                <input bomType="java.lang.String" collection="false" name="the courtesy title"/>
+                <input bomType="java.lang.String" collection="false" name="the name"/>
+                <output bomType="java.lang.String" collection="false" name="the salutation"/>
+                <rule defaultRule="true" href="Salutation/output-default-setting.drl" kind="BusinessRule" name="output-default-setting"/>
+                <rule defaultRule="false" href="Salutation/salutation.drl" kind="BusinessRule" name="salutation"/>
+            </ruleset>
+        </extensionElements>
+        <variable id="node_5_ii" name="Salutation" typeRef="java.lang.String"/>
+        <informationRequirement>
+            <requiredInput href="#node_2"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#node_3"/>
+        </informationRequirement>
+        <informationRequirement>
+            <requiredInput href="#node_6"/>
+        </informationRequirement>
+    </decision>
+</definitions></definition>
+</com.ibm.rules.studio.model.decisionmodel:DecisionModel>

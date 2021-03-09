@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ilog.rules.studio.model.base:RulePackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ilog.rules.studio.model.base="http://ilog.rules.studio/model/base.ecore">
+  <name>Degree</name>
+  <uuid>71d323f2-4f99-4e02-a3be-edf3e08421f4</uuid>
+</ilog.rules.studio.model.base:RulePackage>
